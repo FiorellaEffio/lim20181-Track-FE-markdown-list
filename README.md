@@ -1,8 +1,12 @@
 # FiorellaEffio/md-links library
 
-## Preámbulo
+Esta libreria permite identificar urls rotas y correctas de archivos con extensión md.
 
-## Parte obligatoria
+## instalación
+
+```bash
+npm init
+```
 
 Módulo instalable via `npm install <github-user>/md-links`. Este módulo debe
 incluir tanto un ejecutable (_archivo cli_) que podamos invocar en
