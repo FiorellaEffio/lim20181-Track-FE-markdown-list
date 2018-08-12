@@ -9,35 +9,6 @@ incluir tanto un ejecutable (_archivo cli_) que podamos invocar en
 la línea de comando como una interfaz que podamos importar con `require`
 para usarlo programáticamente.
 
-Los tests unitarios deben cubrir un mínimo del 70% de _statements_, _functions_,
-_lines_ y _branches_. Te recomendamos explorar [Jest](https://jestjs.io/)
-para tus pruebas unitarias.
-
-Para comenzar este proyecto tendrás que hacer un _fork_ y _clonar_ este
-repositorio.
-
-Antes de comenzar a codear, es necesario crear un plan de acción. Esto debería
-quedar detallado en el `README.md` de tu repo y en una serie de _issues_
-y _milestones_ para priorizar y organizar el trabajo, y para poder hacer
-seguimiento de tu progreso.
-
-Dentro de cada _milestone_ se crearán y asignarán los _issues_ que cada quien
-considere necesarios.
-
-Para este proyecto necesitarás revisar los siguientes tópicos
-
-Tópicos:
-
-- [Node.js](https://nodejs.org/en/)
-- [Node.js y npm](https://www.genbeta.com/desarrollo/node-js-y-npm)
-- [Módulos, librerías, paquetes, frameworks... ¿cuál es la diferencia?](http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175)
-- [Módulos(CommonJS)](https://nodejs.org/docs/latest-v0.10.x/api/modules.html)
-- [Semver](https://semver.org/)
-- [Path](https://nodejs.org/api/path.html)
-- [File System](https://nodejs.org/api/fs.html)
-- [marked](https://github.com/markedjs/marked)
-- [Asíncronía en js](https://carlosazaustre.com/manejando-la-asincronia-en-javascript/)
-
 ### Documentación requerida
 
 En el archivo _README_ de tu proyecto tendrás que incluir:
@@ -225,42 +196,6 @@ para usarlo programáticamente.
 - [¿Qué es Node.js y para qué sirve? - drauta.com](https://www.drauta.com/que-es-nodejs-y-para-que-sirve)
 - [¿Qué es Nodejs? Javascript en el Servidor - Fazt en YouTube](https://www.youtube.com/watch?v=WgSc1nv_4Gw)
 - [¿Simplemente qué es Node.js? - IBM Developer Works, 2011](https://www.ibm.com/developerworks/ssa/opensource/library/os-nodejs/index.html)
-
-## Evaluación
-
-### Tech
-
-| Habilidad              | Nivel esperado |
-| ---------------------- | -------------- |
-| **JavaScript**         |                |
-| Estilo                 | 4              |
-| Nomenclatura/semántica | 3              |
-| Funciones/modularidad  | 3              |
-| Estructuras de datos   | 2              |
-| Tests                  | 4              |  |
-| **SCM**                |                |
-| Git                    | 3              |
-| GitHub                 | 3              |
-| **CS**                 |                |
-| Lógica                 | 3              |
-| Arquitectura           | 3              |
-| Patrones/paradigmas    | n/a            |
-
-### Habilidades Blandas
-
-Para este proyecto esperamos que ya hayas alcanzado el nivel 4 en todas tus
-habilidades blandas. Te aconsejamos revisar la rúbrica:
-
-| Habilidad                                                  | Nivel esperado |
-| ---------------------------------------------------------- | -------------- |
-| Planificación y organización                               | 4              |
-| Autoaprendizaje                                            | 4              |
-| Solución de Problemas                                      | 4              |
-| Dar y recibir feedback                                     | 4              |
-| Adaptabilidad                                              | 4              |
-| Trabajo en equipo (trabajo colaborativo y responsabilidad) | 4              |
-| Comunicación eficaz                                        | 4              |
-| Presentaciones                                             | 4              |
 
 ## Checklist
 
