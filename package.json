@@ -1,0 +1,24 @@
+{
+  "name": "mdlinks-effio",
+  "version": "1.0.0",
+  "description": "library to know if a file have url broken or not",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FiorellaEffio/lim20181-Track-FE-markdown-list.git"
+  },
+  "keywords": [
+    "markdown",
+    "links"
+  ],
+  "author": "Fiorella Effio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FiorellaEffio/lim20181-Track-FE-markdown-list/issues"
+  },
+  "homepage": "https://github.com/FiorellaEffio/lim20181-Track-FE-markdown-list#readme"
+}
