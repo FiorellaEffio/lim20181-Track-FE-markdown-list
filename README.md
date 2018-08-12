@@ -13,6 +13,10 @@ incluir tanto un ejecutable (_archivo cli_) que podamos invocar en
 la línea de comando como una interfaz que podamos importar con `require`
 para usarlo programáticamente.
 
+```bash
+const modulo = require('./index.js')
+```
+
 ### Documentación requerida
 
 En el archivo _README_ de tu proyecto tendrás que incluir:
