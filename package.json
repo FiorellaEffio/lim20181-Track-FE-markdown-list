@@ -4,13 +4,7 @@
   "description": "library to know if a file have url broken or not",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "htmlhint": "htmlhint src/index.html test/test.html",
-    "eslint": "eslint --ext .js index.js src/app.js",
-    "pretest": "npm run eslint && npm run htmlhint",
-    "test-browser": "opener ./test/test.html",
-    "test-node": "nyc jest ./test/headless.js && nyc report --reporter=html",
-    "test": "npm run test-node && npm run test-browser"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

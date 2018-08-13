@@ -36,12 +36,6 @@ Y todo lo relevante para que cualquier developer que quiera usar tu librería pu
 - `index.js`: Desde este archivo debes exportar una función (`mdLinks`).
 - `package.json` con nombre, versión, descripción, autores, licencia,
   dependencias, scripts (pretest, test, ...)
-- `.editorconfig` con configuración para editores de texto. Este archivo no se
-  debe cambiar.
-- `.eslintrc` con configuración para linter. Este archivo no
-  se debe cambiar.
-- `.gitignore` para ignorar `node_modules` u otras carpetas que no deban
-  incluirse en control de versiones (`git`).
 - `test/md-links.spec.js` debe contener los tests unitarios para la función
   `mdLinks()`tu inplementación debe pasar estos tets.
 
