@@ -12,9 +12,12 @@ console.log('its ok')
 // };
 urlLinks = ['https://www.google.com', 'https://www.facebook.com'];
 urlLinks.forEach(function(url) {
-  console.log(url);
   request(url, function (error, response) {
     console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    if(200 <= response.statusCode && response.statusCode <400) {
+      console.log(url + ' es una url valida')
+    } else {
+      console.log(url + ' esta rota')
+    }
   });
 });

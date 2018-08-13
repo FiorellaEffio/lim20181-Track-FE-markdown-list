@@ -33,14 +33,6 @@ En el archivo _README_ de tu proyecto tendrás que incluir:
 
 ##### Valor de retorno
 
-La función debe retornar una promesa (`Promise`) que resuelva a un arreglo
-(`Array`) de objetos (_Object_), donde cada objeto representa un link y contiene
-las siguientes propiedades:
-
-- `href`: URL encontrada.
-- `text`: Texto que aparecía dentro del link (`<a>`).
-- `file`: Ruta del archivo donde se encontró el link.
-
 #### Ejemplo
 
 ```js
