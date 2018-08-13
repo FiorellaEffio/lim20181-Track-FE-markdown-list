@@ -5,7 +5,7 @@ Esta libreria permite identificar urls rotas y correctas de archivos con extensi
 ## instalación
 
 ```bash
-npm init
+npm install mdlinks-effio
 ```
 
 Módulo instalable via `npm install <github-user>/md-links`. Este módulo debe
@@ -13,7 +13,7 @@ incluir tanto un ejecutable (_archivo cli_) que podamos invocar en
 la línea de comando como una interfaz que podamos importar con `require`
 para usarlo programáticamente.
 
-```bash
+```js
 const modulo = require('./index.js')
 ```
 
@@ -27,32 +27,9 @@ En el archivo _README_ de tu proyecto tendrás que incluir:
 - Documentación de la Librería (Features, link de Demo, test, etc...).
 - Ejemplos (_snippets_) de uso.
 
-Y todo lo relevante para que cualquier developer que quiera usar tu librería pueda hacerlo sin inconvenientes
-
-### Archivos del proyecto
-
-- `README.md` con descripción del módulo, instrucciones de instalación, uso y
-  documentación del API.
-- `index.js`: Desde este archivo debes exportar una función (`mdLinks`).
-- `package.json` con nombre, versión, descripción, autores, licencia,
-  dependencias, scripts (pretest, test, ...)
-- `test/md-links.spec.js` debe contener los tests unitarios para la función
-  `mdLinks()`tu inplementación debe pasar estos tets.
-
-### JavaScript API
-
-El módulo debe poder importarse en otros scripts de Node.js y debe ofrecer la
-siguiente interfaz:
-
-#### `mdLinks(path, options)`
-
 ##### Argumentos
 
 - `path`: Ruta absoluta o relativa al archivo o directorio. Si la ruta pasada es relativa, debe resolverse como relativa al directorio desde donde se invoca node - _currentworking directory_).
-
-- `options`: Un objeto con las siguientes propiedades:
-  - `validate`: Valor que determina si se desea validar los links encontrados en el archivo. (tipo de dato booleano)
-  - `stats`: Valor que determina si se desea calcular los stats de de los links encontrados en el archivo. (tipo de dato booleano)
 
 ##### Valor de retorno
 
@@ -110,9 +87,7 @@ $ md-links ./some/example.md
 ./some/example.md http://google.com/ Google
 ```
 
-El comportamiento por defecto no debe validar si las URLs responden ok o no,
-solo debe identificar el archivo markdown (a partir de la ruta que recibe como
-argumento), analizar el archivo Markdown e imprimir los links que vaya
+El comportamiento por defecto debe analizar el archivo Markdown e imprimir los links que vaya
 encontrando, junto con la ruta del archivo donde aparece y el texto
 que hay dentro del link (truncado a 50 caracteres).
 
@@ -210,9 +185,3 @@ para usarlo programáticamente.
 - [ ] Un board con el backlog para la implementación de la librería.
 - [ ] Documentación técnica de la librería.
 - [ ] Guía de uso e instalación de la librería
-
-### Pruebas / tests
-
-- [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
-      lines, y branches.
-- [ ] Pasa tests (y linters) (`npm test`).
