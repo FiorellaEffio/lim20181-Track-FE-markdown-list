@@ -1,6 +1,6 @@
 # FiorellaEffio/md-links library
 
-Esta libreria permite identificar urls rotas y correctas de archivos con extensión md.
+Esta librería permite identificar urls rotas y correctas de archivos con extensión md.
 
 ## instalación
 
@@ -30,38 +30,6 @@ En el archivo _README_ de tu proyecto tendrás que incluir:
 ##### Argumentos
 
 - `path`: Ruta absoluta o relativa al archivo o directorio. Si la ruta pasada es relativa, debe resolverse como relativa al directorio desde donde se invoca node - _currentworking directory_).
-
-##### Valor de retorno
-
-#### Ejemplo
-
-```js
-const mdLinks = require("md-links");
-
-mdLinks("./some/example.md")
-  .then(links => {
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
-
-mdLinks("./some/example.md", { validate: true })
-  .then(links => {
-    // => [{ href, text, file, status, ok }]
-  })
-  .catch(console.error);
-
-mdLinks("./some/example.md", { stats: true })
-  .then(links => {
-    // => [{ href, text, file, total, unique, domains }]
-  })
-  .catch(console.error);
-
-mdLinks("./some/dir")
-  .then(links => {
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
-```
 
 ### CLI (Línea de comando)
 

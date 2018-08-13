@@ -19,3 +19,5 @@ test('deberia retornar las estadisticas(total, repetidos, rotos) para los links 
   answer = [{href:'https://www.google.com', text:'Este link te redirige a google ', file:'links.md', total:1, unique: 1, broken:0}];
   expect(mdLinks('links.md', {validate: true, stats: true})).toBe(answer);
 });
+
+// falta escribir test para cuando la ruta(path) es una carpeta
