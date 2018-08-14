@@ -5,7 +5,13 @@ Esta libreria permite identificar urls rotas y correctas de archivos con extensi
 ## instalación
 
 ```bash
-npm init
+npm install FiorellaEffio/md-links
+```
+
+##Uso
+
+```js
+var mdLinks = require('FiorellaEffio/md-links')
 ```
 
 Módulo instalable via `npm install <github-user>/md-links`. Este módulo debe
@@ -13,7 +19,7 @@ incluir tanto un ejecutable (_archivo cli_) que podamos invocar en
 la línea de comando como una interfaz que podamos importar con `require`
 para usarlo programáticamente.
 
-```bash
+```js
 const modulo = require('./index.js')
 ```
 
