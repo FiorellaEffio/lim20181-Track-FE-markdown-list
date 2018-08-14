@@ -1,7 +1,9 @@
 {
   "name": "mdlinks-effio",
   "version": "1.0.0",
-  "bin": "./index.js",
+  "bin": {
+    "md-links": "./cli.js"
+  },
   "description": "library to know if a file have url broken or not",
   "main": "index.js",
   "scripts": {
