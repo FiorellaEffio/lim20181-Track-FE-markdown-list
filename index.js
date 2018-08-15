@@ -9,36 +9,35 @@ let fetch = require('node-fetch');
 let fs = require('fs');
 const path = require('path');
 const marked = require('marked');
-
 let files = [];
+let path1 = "test"
 //funcion para ver si es archivo o carpeta
-const validateFileOrDirectory = (path) => {
+const validatePath = (path) => {
   //verificamos que la ruta es valida
   try {
-    if(fs.accessSync(path)) {
-      console.log("existe");
-      let stats = fs.statSync(path);
-      console.log(stats);
-      if(stats.isFile()) {
-        console.log(path.slice(path.length-3, path.length))
-        if(".md" === path.slice(path.length-3, path.length)) {
-          console.log('Es un archivo markdown');
-          mdLinks(path);
-        } else {
-          console.log('No es markdown');
-        }
-      } else {
-        return obtainFilesMDFromDirectory(path);
-      }
-    }
+    require('fs').accessSync(path)
+    validateFileOrDirectory(path);
+    return true;
   } catch (e) {
-      console.log("ruta no valida");
+    console.log("ruta no valida");
   }
 }
-validateFileOrDirectory('index.js')
+const validateFileOrDirectory = (path) => {
+    let stats = fs.statSync(path);
+    if(stats.isFile()) {
+      console.log(path.slice(path.length-3, path.length))
+      if(".md" === path.slice(path.length-3, path.length)) {
+        console.log('Es un archivo markdown');
+      } else {
+        console.log('No es markdown');
+      }
+    } else {
+      return obtainFilesMDFromDirectory(path);
+    }
+}
 //funcion para extraer archivos md de carpeta
 const obtainFilesMDFromDirectory = (path) => {
-
+  console.log('wii obteniendo archivos')
 };
 //funcion que valida el status code de una url
 const urlValidateStatus = (url) => {
@@ -48,4 +47,5 @@ const urlValidateStatus = (url) => {
       return response.status;
     })
 }
+validatePath(path1)
 // module.exports = mdLinks;
