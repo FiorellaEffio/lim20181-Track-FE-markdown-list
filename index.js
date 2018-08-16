@@ -1,16 +1,10 @@
 const Logger = require('logplease');
 const logger = Logger.create('utils');
 const lineReader = require('line-reader');
-// logger.log(`ñoo`); // alias for debug()
-// logger.info(`Información de ultimo momento`);
-// logger.warn(`URL sin respuesta`);
-logger.debug(`URL válida`);
-logger.error(`URL sin respuesta`);
 let fetch = require('node-fetch');
 let fs = require('fs');
 const path = require('path');
 let files = [];
-let path1 = "test";
 //funcion para ver si es archivo o carpeta
 const validatePath = (path) => {
   try {
@@ -26,19 +20,16 @@ const validateFileOrDirectory = (path) => {
   if(stats.isFile()) {
     if(".md" === path.slice(path.length-3, path.length)) {
       let links = [];
-      console.log(path)
-      let lineno = 0;
+      let lineNumber = 0;
       lineReader.eachLine(path, function(line, last) {
-        lineno++;
-        console.log(lineno)
+        lineNumber++;
         url = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
         if(url !== null) {
-          console.log(line);
-          console.log(url[2]);
+          file = path;
+          text = url[1]
           href = url[2];
-          links.push({lineno, href});
-          links.push('hola')
-          let fileStats = {path, links};
+          links.push({lineNumber, text, href});
+          let fileStats = {file, links};
           console.log(fileStats)
           files.push(fileStats);
         }
@@ -69,7 +60,8 @@ const urlValidateStatus = (url) => {
     .then(function(response) {
       console.log(response.statusText);
       return response.status;
+      logger.debug(`URL válida`);
+      logger.error(`URL sin respuesta`);
     })
 }
-validatePath(path1);
-// module.exports = mdLinks;
+module.exports = validatePath;
