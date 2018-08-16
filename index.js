@@ -10,7 +10,7 @@ let fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 let files = [];
-let path1 = "..";
+let path1 = "test";
 //funcion para ver si es archivo o carpeta
 const validatePath = (path) => {
   //verificamos que la ruta es valida
@@ -25,14 +25,10 @@ const validatePath = (path) => {
 const validateFileOrDirectory = (path) => {
   let stats = fs.statSync(path);
   if(stats.isFile()) {
-    console.log(path.slice(path.length-3, path.length))
     if(".md" === path.slice(path.length-3, path.length)) {
       fileStats = {path, links : []};
       files.push(fileStats);
-      console.log('Es un archivo markdown');
-      console.log(files)
     } else {
-      console.log('No es markdown');
     }
   } else {
     return obtainFilesMDFromDirectory(path);
@@ -40,16 +36,27 @@ const validateFileOrDirectory = (path) => {
 }
 //funcion para extraer archivos md de carpeta
 const obtainFilesMDFromDirectory = (path) => {
-  console.log('obteniendo archivos')
   fs.readdir(path, (err, files) => {
-  console.log(files)
   if(files !== undefined) {
     files.forEach((file) => {
       validateFileOrDirectory(path + "/" + file);
   	 });
   }
   });
+  console.log(files.length)
 }
+// function mdLinks(someValue){
+//     return new Promise(function(resolve, reject){
+//         getData(someValue, function(error, result){
+//             if(error){
+//                 reject(error);
+//             }
+//             else{
+//                 resolve(result);
+//             }
+//         })
+//     });
+// }
 //funcion que valida el status code de una url
 const urlValidateStatus = (url) => {
   fetch(url)
