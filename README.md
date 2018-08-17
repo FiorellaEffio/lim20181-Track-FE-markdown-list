@@ -22,25 +22,37 @@ Milestone : 3 Validar una URL si esta rota o no.
 6. Yo como usuario de npm me gustaría tener una libreria que contabilice las url que se repiten, la cantidad total.
 Milestone : 7 Contabilizar en el objeto del archivo las propiedades total, unique.
 
-## instalación
+## Instalación
+
+Por el momento localmente se puede hacer uso de esta librería.
+Para instalar las dependencias del proyecto, una vez descargado ejecutar en la linea de comandos
 
 ```bash
-npm install FiorellaEffio/md-links
+npm install
 ```
 
-##Uso
+Las dependencias estan detalladas en el archivo package.json
 
-```js
-var mdLinks = require('FiorellaEffio/md-links')
+##Uso en la línea de comandos
+
+Para ejecutar el archivo cli.js ejecutamos
+
+```bash
+npm link
 ```
 
-Módulo instalable via `npm install <github-user>/md-links`. Este módulo debe
-incluir tanto un ejecutable (_archivo cli_) que podamos invocar en
-la línea de comando como una interfaz que podamos importar con `require`
-para usarlo programáticamente.
+Finalmente para reconocer archivos md con urls ejecutamos
+
+```bash
+md-links <ruta-del-archivo>
+```
+
+Por defecto si no le pasamos ningun parametro se ejecuta en el directorio actual.
+
+##Para uso dentro de tu proyecto
 
 ```js
-const modulo = require('./index.js')
+let mdLinks = require('./index.js')
 ```
 
 ### Documentación requerida
