@@ -37,7 +37,6 @@ const validateFileOrDirectory = (path) => {
           return false; // stop reading
         }
       });
-
     } else {
     }
   } else {

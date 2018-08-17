@@ -154,7 +154,7 @@ para usarlo programáticamente.
 - [ ] Implementa soporte para archivo individual
 - [ ] Implementa soporte para directorios
 - [ ] Implementa `options.validate`
-
+- [Marked](https://github.com/markedjs/marked/blob/master/docs/USING_PRO.md)
 ### CLI
 
 - [ ] Expone ejecutable `md-links` en el path (configurado en `package.json`)
