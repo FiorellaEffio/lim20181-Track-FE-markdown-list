@@ -1,6 +1,26 @@
 # FiorellaEffio/md-links library
 
 Esta librería permite identificar urls rotas y correctas de archivos con extensión md.
+Para implementar esta librería desarrollé historias de usuarios que me permitieron reconocer cuales eran las tareas
+que debía realizar para el proyecto.
+
+1. Yo como usuario de npm me gustaría tener una librería que tenga detallado sus dependencias para saber que debo instalar.
+Milestone : 1 Configuraciones de archivos para la librería.
+
+2. Yo como usuario de npm me gustaría probar mediante test si algunas funciones son lo que estoy buscando o no.
+Milestone : 2 Configuraciones de archivos para test con jest.
+
+3. Yo como usuario de npm me gustaría tener una libreria que me permita buscar todos los archivos md dentro de una carpeta.
+Milestone : 5 y 6 Recorrer carpetas, verificar si son archivos o carpetas nuevamente y almacenar en un array los archivos con coincidencia en la extensión.
+
+4. Yo como usuario de npm me gustaría tener una libreria que me permita listar las URL de los archivos markdown que le pase.
+Milestone : 4 Buscar las URL dentro de un archivo md.
+
+5. Yo como usuario de npm me gustaría tener una libreria que identifique de todos los url quienes son correctos y quienes estan rotos.
+Milestone : 3 Validar una URL si esta rota o no.
+
+6. Yo como usuario de npm me gustaría tener una libreria que contabilice las url que se repiten, la cantidad total.
+Milestone : 7 Contabilizar en el objeto del archivo las propiedades total, unique.
 
 ## instalación
 
@@ -109,42 +129,6 @@ para usarlo programáticamente.
 
 - Puedes agregar más estadísticas.
 - Integración continua con Travis o Circle CI.
-
-## Pistas / Tips / Recursos
-
-### Pistas
-
-- [Marked](https://github.com/markedjs/marked/blob/master/docs/USING_PRO.md)
-- [NPM](https://docs.npmjs.com/getting-started/what-is-npm)
-- [Publicar packpage](https://docs.npmjs.com/getting-started/publishing-npm-packages)
-- [Crear módulos en Node.js](https://docs.npmjs.com/getting-started/publishing-npm-packages)
-- [Leer un archivo](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)
-- [Leer un Directorio](https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback)
-- [Path](https://nodejs.org/api/path.html)
-- [Linea de comando CLI](https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e)
-
-### Tutoriales / NodeSchool workshoppers
-
-- [learnyounode](https://github.com/workshopper/learnyounode)
-- [how-to-npm](https://github.com/workshopper/how-to-npm)
-- [promise-it-wont-hurt](https://github.com/stevekane/promise-it-wont-hurt)
-
-### Otros recursos
-
-- [Acerca de Node.js - Documentación oficial](https://nodejs.org/es/about/)
-- [Node.js file system - Documentación oficial](https://nodejs.org/api/fs.html)
-- [Node.js http.get - Documentación oficial](https://nodejs.org/api/http.html#http_http_get_options_callback)
-- [Node.js - Wikipedia](https://es.wikipedia.org/wiki/Node.js)
-- [What exactly is Node.js? - freeCodeCamp](https://medium.freecodecamp.org/what-exactly-is-node-js-ae36e97449f5)
-- [¿Qué es Node.js y para qué sirve? - drauta.com](https://www.drauta.com/que-es-nodejs-y-para-que-sirve)
-- [¿Qué es Nodejs? Javascript en el Servidor - Fazt en YouTube](https://www.youtube.com/watch?v=WgSc1nv_4Gw)
-- [¿Simplemente qué es Node.js? - IBM Developer Works, 2011](https://www.ibm.com/developerworks/ssa/opensource/library/os-nodejs/index.html)
-
-## Checklist
-
-### General
-
-- [ ] Entrega el link del módulo publicado en npm
 
 ### `README.md`
 
