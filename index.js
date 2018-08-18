@@ -59,8 +59,7 @@ const urlValidateStatus = (url) => {
     .then(function(response) {
       console.log(response.statusText);
       return response.status;
-      logger.debug(`URL válida`);
-      logger.error(`URL sin respuesta`);
+
     })
 }
 module.exports = validatePath;
