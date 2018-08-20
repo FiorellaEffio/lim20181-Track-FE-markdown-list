@@ -2,7 +2,7 @@ const mdLinks = require('../index.js');
 
 test('deberia retornar los links del archivo con extension md', () => {
   answer = [{href:'https://www.google.com', text:'Este link te redirige a google ', file:'links.md'}];
-  expect(mdLinks('links.md')).toBe(answer);
+  expect(mdLinks('links.md', {validate:false, stats:false})).toBe(answer);
 });
 
 test('deberia retornar los estados (ok o fail) para los links del archivo md', () => {

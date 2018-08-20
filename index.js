@@ -8,8 +8,9 @@ let files = [];
 //funcion para ver si es archivo o carpeta
 const validatePath = (path) => {
   try {
-    require('fs').accessSync(path)
+    fs.accessSync(path)
     validateFileOrDirectory(path);
+    console.log(files)
     return true;
   } catch (e) {
     console.log("ruta no valida");
@@ -28,10 +29,19 @@ const validateFileOrDirectory = (path) => {
           file = path;
           text = url[1]
           href = url[2];
-          links.push({lineNumber, text, href});
-          let fileStats = {file, links};
-          console.log(fileStats)
-          files.push(fileStats);
+          let statusCode
+          fetch(href)
+            .then(function(response) {
+              statusCode = response.status;
+              return response.status;
+            })
+            .then(function(response2){
+              links.push({lineNumber, text, href, statusCode});
+              let fileStats = {file, links};
+              files.push(fileStats);
+            })
+            console.log(files)
+
         }
         if (last) {
           return false; // stop reading
@@ -53,13 +63,26 @@ const obtainFilesMDFromDirectory = (path) => {
   }
   });
 }
+//promesa mdLinks
+let mdLinks = new Promise((resolve, reject) => {
+  let datos = {};
+  //...
+  //muchas lineas de código
+  //...
+  if (error) {
+    //uh oh, las cosas no salieron tan bien
+    reject(new Error('Fallamos, lo siento'));
+  }
+  //...
+  resolve(datos);
+});
+
 //funcion que valida el status code de una url
 const urlValidateStatus = (url) => {
   fetch(url)
     .then(function(response) {
       console.log(response.statusText);
       return response.status;
-
     })
 }
 module.exports = validatePath;
