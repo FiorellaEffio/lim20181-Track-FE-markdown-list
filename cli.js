@@ -9,14 +9,14 @@ if(args.length<=3){
     mdLinks('.');
   }
   if (args.length == 1) {
-    mdLinks(args[0],{validate:false, stats:false});
+    mdLinks(args[0]);
   }
   if (args.length == 2) {
     if(args[1] === "--validate" || args === "--v") {
-      mdLinks(args[0],{validate:true, stats:false});
+      mdLinks(args[0],{validate:true});
     }
     if(args[1] === "--stats" || args === "--s") {
-      mdLinks(args[0],{validate:false, stats:true});
+      mdLinks(args[0],{stats:true});
     }
   }
   if(args.length == 3) {

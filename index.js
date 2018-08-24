@@ -53,13 +53,44 @@ const obtainFilesMDFromDirectory = (path) => {
   }
   });
 }
-//funcion que valida el status code de una url
-const urlValidateStatus = (url) => {
-  fetch(url)
-    .then(function(response) {
-      console.log(response.statusText);
-      return response.status;
+//funcion mdLinks
+const mdLinks = (path, options) => {
+  options = (options) ? options : {validate:false, stats:false};
+  console.log(Object.keys(options));
+  return new Promise((resolved, reject) => {
 
-    })
+    resolved(profesion[id])
+  })
 }
-module.exports = validatePath;
+let links = [{href:'https://www.google.com.pe', lineNumber: 3, file: 'test'},
+  {href:'https://developer.mozilla.org/es/docs/Web', lineNumber:7,file:'test'}];
+
+function getLinks() {
+  return new Promise((resolved, reject) => {
+    setTimeout(()=>{
+      resolved(links)
+    }, 1000)
+  })
+}
+
+function getStatusCode(links) {
+  return new Promise((resolved, reject) => {
+    links.forEach(function(element) {
+      console.log(element.href);
+
+      fetch(element.href)
+      .then(function(response) {
+        console.log(response)
+        element.statusCode = response.status;
+        element.url = response.url
+      })
+    });
+    resolved(links);
+  })
+}
+
+getLinks()
+ .then((links)=> getStatusCode(links))
+ .then((response)=> console.log(response))
+
+module.exports = mdLinks;
