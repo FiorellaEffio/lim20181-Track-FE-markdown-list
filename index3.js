@@ -36,12 +36,33 @@ const getFilesFromDir = (dir) => {
   }
   return filesToReturn;
 }
-
+const linksOfFile = (fileObject) => {
+  let lineNumber = 0;
+  console.log(fileObject.links)
+  lineReader.eachLine(fileObject.file, function(line, last) {
+    lineNumber++;
+    url = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
+    if(url !== null) {
+      file = fileObject.file;
+      text = url[1]
+      href = url[2];
+      (fileObject.links).push({lineNumber, text, href});
+    }
+    if (last) {
+      return false; // stop reading
+    }
+  });
+}
 const mdLinks = (path, options) => {
  options = (options) ? options : {validate:false, stats:false};
  return new Promise((resolved, reject) => {
    if(validatePath(path)) {
      files = getFilesFromDir(path);
+     files.forEach(function(element) {
+       console.log(element)
+       element.links = [];
+       linksOfFile(element);
+     });
      resolved(files);
    } else {
      resolved('ruta no valida');
