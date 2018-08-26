@@ -36,33 +36,38 @@ const getFilesFromDir = (dir) => {
   }
   return filesToReturn;
 }
-const linksOfFile = (fileObject) => {
-  let lineNumber = 0;
-  console.log(fileObject.links)
-  lineReader.eachLine(fileObject.file, function(line, last) {
-    lineNumber++;
-    url = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
-    if(url !== null) {
-      file = fileObject.file;
-      text = url[1]
-      href = url[2];
-      (fileObject.links).push({lineNumber, text, href});
-    }
-    if (last) {
-      return false; // stop reading
-    }
-  });
+const linksOfFile = (files) => {
+  return new Promise((resolved, reject) => {
+    files.forEach(function(element) {
+      console.log(element)
+      let lineNumber = 0;
+      linksArray = element.links;
+      linksArray = [];
+      lineReader.eachLine(element.file, function(line, last) {
+        console.log(element.file)
+        lineNumber++;
+        url = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
+        if(url !== null) {
+          file = element.file;
+          text = url[1]
+          href = url[2];
+          (linksArray).push({lineNumber, text, href});
+          console.log(linksArray)
+        }
+        if (last) {
+          return false; // stop reading
+        }
+      });
+    });
+
+    resolved(files)
+  })
 }
 const mdLinks = (path, options) => {
  options = (options) ? options : {validate:false, stats:false};
  return new Promise((resolved, reject) => {
    if(validatePath(path)) {
      files = getFilesFromDir(path);
-     files.forEach(function(element) {
-       console.log(element)
-       element.links = [];
-       linksOfFile(element);
-     });
      resolved(files);
    } else {
      resolved('ruta no valida');
@@ -72,5 +77,6 @@ const mdLinks = (path, options) => {
 //print the txt files in the current directory
 let options = {validate:false,stats:false}
 mdLinks('test', options)
+ .then((files)=> linksOfFile(files))
  .then((files)=> console.log(files))
 module.exports = mdLinks;
