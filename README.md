@@ -169,3 +169,4 @@ para usarlo programáticamente.
 - [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
       lines, y branches.
 - [ ] Pasa tests (y linters) (`npm test`).
+- [Marked](https://github.com/markedjs/marked/blob/master/docs/USING_PRO.md)
