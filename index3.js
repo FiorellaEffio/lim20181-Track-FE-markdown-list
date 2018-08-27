@@ -1,27 +1,9 @@
 var fs = require('fs');
 var path = require('path');
-let lineReader = require('line-reader');
 let fetch = require('node-fetch');
+let lines = require('./index.js')
 let links = [];
-
-const lines = (path) => {
-  return new Promise((resolved, reject)=>{
-    let lineNumber = 0;
-    lineReader.eachLine(path, function(line, last) {
-      lineNumber++;
-      url = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
-      if(url !== null) {
-        href = url[2];
-        text = url[1];
-        links.push({fileName:path, lineNumber, href, text});
-      }
-      if (last) {
-        resolved(links)
-        return false; // stop reading
-      }
-    });
-  })
-}
+let getStatusCode = require('./index2.js')
 
 function obtainFilesMDFromDirectory(currentPath) {
   return new Promise((resolved, reject) => {
@@ -29,9 +11,7 @@ function obtainFilesMDFromDirectory(currentPath) {
     for (var i in files) {
       var currentFile = path.join(currentPath, files[i]);
       if (fs.statSync(currentFile).isFile() && path.extname(currentFile) === '.md') {
-        let lineNumber = 0;
-        lines(currentFile);
-
+        links.push(currentFile);
       } else if (fs.statSync(currentFile).isDirectory()) {
        obtainFilesMDFromDirectory(currentFile);
       }
@@ -39,7 +19,6 @@ function obtainFilesMDFromDirectory(currentPath) {
     resolved(links);
   })
 };
-
 
 const mdLinks = (path, options) => {
  options = (options) ? options : {validate:false, stats:false};
@@ -57,9 +36,51 @@ const mdLinks = (path, options) => {
 }
 //print the txt files in the current directory
 let options = {validate:false,stats:false}
-// mdLinks('test')
-//  .then((files)=> console.log(files))
+let filesStats = [];
+mdLinks('test')
+ .then((files) => {
+ promisesFilesArray = [];
+ files.forEach(function(element) {
+   lines(element)
+    .then(result => filesStats.push(result))
+ })
+ return filesStats;
+})
+.then(result => console.log(result))
 
-lines('test/hola.md')
- .then((files)=> console.log(files))
+
+ //
+ //
+ // promisesFilesArray = [];
+ // files.forEach(function(element) {
+ //   promisesFilesArray.push(getStatusCode(element.href));
+ // })
+ // //
+ // Promise.all(promisesFilesArray)
+ //   .then((response) => {
+ //     for(i=0;i<files.length;i++) {
+ //       files[i].statusText = response[i].statusText;
+ //       files[i].statusCode = response[i].status;
+ //     }
+ //     return files;
+ //   })
+ //   .then((response) => {
+ //     let unique = 0;
+ //     let broken = 0;
+ //     let total = 0;
+ //     let links = [];
+ //     files.forEach(function(element) {
+ //       total++;
+ //       if(element.statusText === 'Fail') {
+ //         broken++;
+ //       }
+ //       links.push(element.href);
+ //       console.log(element.fileName + "\t" +element.lineNumber+" "+element.href+" "+element.text+" "+element.statusCode+'/'+element.statusText)
+ //     });
+ //     unique = links.filter(function(item, index, array) {
+ //       return array.indexOf(item) === index;
+ //     });
+ //     console.log('unique:'+unique.length+', broken:'+broken+', total:'+ total)
+ //   })
+
 module.exports = mdLinks;
