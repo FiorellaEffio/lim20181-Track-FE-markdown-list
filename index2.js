@@ -4,8 +4,11 @@ function getStatusCode(url) {
   return new Promise((resolved, reject) => {
     fetch(url)
       .then(function(response) {
-        resolved(response.status);
+        resolved(response.statusText);
       })
+      .catch(function(error) {
+        resolved('fail');
+      });
   })
 }
 
@@ -13,7 +16,7 @@ let files = [
   {fileName:'test/uno.md', lineNumber:1, href:'https://www.google.com.pe', text:'[Markdown]'},
   {fileName:'test/uno.md', lineNumber:2, href:'https://www.google.com.pe', text:'[Google]'},
   {fileName:'test/dos.md', lineNumber:3, href:'https://www.google.com.pe', text:'[Facebook]'},
-  {fileName:'test/dos.md', lineNumber:4, href:'https://www.google.com.pe', text:'[Twiiter]'},
+  {fileName:'test/dos.md', lineNumber:4, href:'https://www.googlxe.com.pe', text:'[Twiiter]'},
   {fileName:'tres.md', lineNumber:5, href:'https://www.google.com.pe', text:'[Laboratoria]'},
   {fileName:'tres.md', lineNumber:6, href:'https://www.google.com.pe', text:'[Fiorella]'}
 ];
@@ -29,4 +32,8 @@ Promise.all(promisesFilesArray)
     }
     return files;
   })
-  .then((response) => console.log(response))
+  .then((response) => {
+    files.forEach(function(element) {
+      console.log(element.fileName + " " +element.lineNumber+" "+element.href+" "+element.text+" "+element.status)
+    })
+  })
