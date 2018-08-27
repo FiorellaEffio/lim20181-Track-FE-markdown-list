@@ -1,25 +1,27 @@
-let links = [{href:'https://www.google.com.pe', lineNumber: 3, file: 'test'},
-  {href:'https://developer.mozilla.org/es/docs/Web', lineNumber:7,file:'test'}];
+var fs = require('fs');
+var path = require('path');
+let lineReader = require('line-reader');
+let fetch = require('node-fetch');
+let links = [];
 
-function getLinks() {
-  return new Promise((resolved, reject) => {
-    setTimeout(()=>{
-      resolved(links)
-    }, 1000)
-  })
-}
-
-function getStatusCode(links) {
-  return new Promise((resolved, reject) => {
-    links.forEach(function(element) {
-      console.log(element.href);
-      fetch(element.href)
-      .then(function(response) {
-        console.log(response)
-        element.statusCode = response.status;
-        element.url = response.url
-      })
+const lines = (path) => {
+  return new Promise((resolved, reject)=>{
+    let lineNumber = 0;
+    lineReader.eachLine(path, function(line, last) {
+      lineNumber++;
+      let href,text;
+      url = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
+      if(url !== null) {
+        href = url[2];
+        text = url[1];
+        links.push({fileName:path, lineNumber, href, text});
+      }
+      if (last) {
+        resolved({fileName:path, lineNumber, href, text})
+        return false; // stop reading
+      }
     });
-    resolved(links);
   })
 }
+
+module.exports = lines;
