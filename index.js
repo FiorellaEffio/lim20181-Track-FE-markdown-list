@@ -4,8 +4,9 @@ let lineReader = require('line-reader');
 let fetch = require('node-fetch');
 let links = [];
 let promisesFilesArray = [];
+let promisesArchivosMDArray = [];
 
-function getStatusCode(url) {
+const getStatusCode = (url) => {
   return new Promise((resolved, reject) => {
     fetch(url)
       .then(function(response) {
@@ -36,38 +37,49 @@ const lines = (path) => {
     });
   })
 }
-lines('README.md')
-  .then(files => {
-    console.log(files)
-    files.forEach(function(element) {
-      promisesFilesArray.push(getStatusCode(element.href));
-    })
-    Promise.all(promisesFilesArray)
-    .then((response) => {
-     for(i=0;i<files.length;i++) {
-       files[i].statusText = response[i].statusText;
-       files[i].statusCode = response[i].status;
-     }
-     return files;
-    })
-    .then((response) => {
-     let unique = 0;
-     let broken = 0;
-     let total = 0;
-     let links = [];
-     files.forEach(function(element) {
-       total++;
-       if(element.statusText === 'Fail') {
-         broken++;
-       }
-       links.push(element.href);
-       console.log(element.fileName + "\t" +element.lineNumber+" "+element.href+" "+element.text+" "+element.statusCode+'/'+element.statusText)
-     });
-     unique = links.filter(function(item, index, array) {
-       return array.indexOf(item) === index;
-     });
-     console.log('unique:'+unique.length+', broken:'+broken+', total:'+ total)
-    })
+
+let archivosMD = [ 'test\\archivosmd\\holacarpeta.md',
+  'test\\hola\\hola2\\masca.md',
+  'test\\hola\\index.md',
+  'test\\hola.md',
+  'test\\test.md' ];
+archivosMD.forEach(function(archivo) {
+  promisesArchivosMDArray.push(lines(archivo));
+})
+Promise.all(promisesArchivosMDArray)
+  .then((response) => {
+    console.log(links)
+        console.log(links)
+        links.forEach(function(element) {
+          promisesFilesArray.push(getStatusCode(element.href));
+        })
+        Promise.all(promisesFilesArray)
+        .then((response) => {
+         for(i=0;i<links.length;i++) {
+           links[i].statusText = response[i].statusText;
+           links[i].statusCode = response[i].status;
+         }
+         return links;
+        })
+        .then((response) => {
+         let unique = 0;
+         let broken = 0;
+         let total = 0;
+         let linksFilter = [];
+         links.forEach(function(element) {
+           total++;
+           if(element.statusText === 'Fail') {
+             broken++;
+           }
+           linksFilter.push(element.href);
+           console.log(element.fileName + "\t" +element.lineNumber+" "+element.href+" "+element.text+" "+element.statusCode+'/'+element.statusText)
+         });
+         unique = linksFilter.filter(function(item, index, array) {
+           return array.indexOf(item) === index;
+         });
+         console.log('unique:'+unique.length+', broken:'+broken+', total:'+ total)
+        })
   })
+
 
 module.exports = lines;
