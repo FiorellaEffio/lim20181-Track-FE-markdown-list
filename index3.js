@@ -3,9 +3,8 @@ var path = require('path');
 let fetch = require('node-fetch');
 let lines = require('./index.js')
 let links = [];
-let getStatusCode = require('./index2.js')
 
-function obtainFilesMDFromDirectory(currentPath) {
+const obtainFilesMDFromDirectory = (currentPath) => {
   return new Promise((resolved, reject) => {
     var files = fs.readdirSync(currentPath);
     for (var i in files) {
@@ -20,16 +19,18 @@ function obtainFilesMDFromDirectory(currentPath) {
   })
 };
 
-const mdLinks = (path, options) => {
+const mdLinks = (ruta, options) => {
  options = (options) ? options : {validate:false, stats:false};
  return new Promise((resolved, reject) => {
-   if(fs.statSync(path).isFile()) {
-     if(path.extname(path) === '.md') {
+   if(fs.statSync(ruta).isFile()) {
+     var ext = path.extname(ruta);
+     if(ext === '.md') {
+       resolved([ruta])
      } else {
        console.log('No es archivo markdown');
      }
    } else {
-     links = obtainFilesMDFromDirectory(path);
+     links = obtainFilesMDFromDirectory(ruta);
      resolved(links)
    }
  })
@@ -38,49 +39,6 @@ const mdLinks = (path, options) => {
 let options = {validate:false,stats:false}
 let filesStats = [];
 mdLinks('test')
- .then((files) => {
- promisesFilesArray = [];
- files.forEach(function(element) {
-   lines(element)
-    .then(result => filesStats.push(result))
- })
- return filesStats;
-})
-.then(result => console.log(result))
-
-
- //
- //
- // promisesFilesArray = [];
- // files.forEach(function(element) {
- //   promisesFilesArray.push(getStatusCode(element.href));
- // })
- // //
- // Promise.all(promisesFilesArray)
- //   .then((response) => {
- //     for(i=0;i<files.length;i++) {
- //       files[i].statusText = response[i].statusText;
- //       files[i].statusCode = response[i].status;
- //     }
- //     return files;
- //   })
- //   .then((response) => {
- //     let unique = 0;
- //     let broken = 0;
- //     let total = 0;
- //     let links = [];
- //     files.forEach(function(element) {
- //       total++;
- //       if(element.statusText === 'Fail') {
- //         broken++;
- //       }
- //       links.push(element.href);
- //       console.log(element.fileName + "\t" +element.lineNumber+" "+element.href+" "+element.text+" "+element.statusCode+'/'+element.statusText)
- //     });
- //     unique = links.filter(function(item, index, array) {
- //       return array.indexOf(item) === index;
- //     });
- //     console.log('unique:'+unique.length+', broken:'+broken+', total:'+ total)
- //   })
+ .then((files) => { console.log(files)})
 
 module.exports = mdLinks;
