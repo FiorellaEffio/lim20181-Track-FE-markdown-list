@@ -1,4 +1,12 @@
 let fetch = require('node-fetch')
+let files = [ { fileName: 'README.md',
+    lineNumber: 157,
+    href: 'https://github.com/markedjs/marked/blob/master/docs/USING_PRO.md',
+    text: 'Marked' },
+  { fileName: 'README.md',
+    lineNumber: 172,
+    href: 'https://github.com/markedjs/marked/blob/master/docs/USING_PRO.md',
+    text: 'Marked' } ]
 
 function getStatusCode(url) {
   return new Promise((resolved, reject) => {

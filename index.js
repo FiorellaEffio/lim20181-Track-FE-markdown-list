@@ -17,11 +17,13 @@ const lines = (path) => {
         links.push({fileName:path, lineNumber, href, text});
       }
       if (last) {
-        resolved({fileName:path, lineNumber, href, text})
+        resolved(links)
         return false; // stop reading
       }
     });
   })
 }
+lines('README.md')
+  .then(response => console.log(response))
 
 module.exports = lines;
