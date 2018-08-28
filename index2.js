@@ -52,5 +52,4 @@ Promise.all(promisesFilesArray)
  console.log('unique:'+unique.length+', broken:'+broken+', total:'+ total)
 })
 
-
 module.exports = getStatusCode;
