@@ -24,7 +24,12 @@ Milestone : 7 Contabilizar en el objeto del archivo las propiedades total, uniqu
 
 ## Instalación
 
-Por el momento localmente se puede hacer uso de esta librería.
+Para instalar esta librería debemos ejecutar el siguiente comando
+
+```bash
+npm install md-links-effio
+```
+
 Para instalar las dependencias del proyecto, una vez descargado ejecutar en la linea de comandos
 
 ```bash
@@ -35,17 +40,19 @@ Las dependencias estan detalladas en el archivo package.json
 
 ##Uso en la línea de comandos
 
-Para ejecutar el archivo cli.js ejecutamos
+Para hacer una demostración de la librería hemos creado la carpeta carpeta-mdlinks
 
-```bash
-npm link
-```
-
-Finalmente para reconocer archivos md con urls ejecutamos
+md-links reconoce archivos md con los links
 
 ```bash
 md-links <ruta-del-archivo>
 ```
+
+![md-links](img/md-links.JPG)
+![validate](img/md-links-validate.JPG)
+![stats](img/md-links-stats.JPG)
+![validate y stats](img/md-links-validate-stats.JPG)
+
 
 Por defecto si no le pasamos ningun parametro se ejecuta en el directorio actual.
 
