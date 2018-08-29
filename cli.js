@@ -98,7 +98,11 @@ myFuncionLinks.then((archivosMD) => {
           .then((links) => {
             if(options.validate === true && options.stats === false) {
               links.forEach((element)=>{
-                console.log(element.fileName.green +"\t"+ element.lineNumber+"\t"+ element.href.underline.blue +"\t"+ element.statusCode+"\t"+ element.statusText+"\t"+ element.text)
+                if(element.statusText === 'Fail') {
+                  console.log(element.fileName.green +"\t"+ element.lineNumber+"\t"+ element.href.underline.blue +"\t"+ element.statusCode+"\t"+ element.statusText.red+"\t"+ element.text)
+                } else {
+                  console.log(element.fileName.green +"\t"+ element.lineNumber+"\t"+ element.href.underline.blue +"\t"+ element.statusCode+"\t"+ element.statusText.blue+"\t"+ element.text)
+                }
               })
             } else if (options.stats === true) {
               let unique = 0;
