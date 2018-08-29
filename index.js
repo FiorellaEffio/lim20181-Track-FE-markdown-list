@@ -4,6 +4,7 @@ let fetch = require('node-fetch');
 let lineReader = require('line-reader');
 let filesMD = [];
 let links1 = [];
+let promisesArchivosMDArray = [];
 
 const getStatusCode = (url) => {
   return new Promise((resolved, reject) => {
@@ -64,7 +65,7 @@ const mdLinks = (ruta, options) => {
      }
    } else {
      filesMD = obtainFilesMDFromDirectory(ruta);
-     resolved(filesMD)
+     resolved(filesMD);
    }
  })
 }
