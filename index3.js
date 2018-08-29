@@ -6,6 +6,7 @@ let links = [];
 let promisesFilesArray = [];
 let promisesArchivosMDArray = [];
 let archivosMD = [];
+let filesMD = [];
 
 const getStatusCode = (url) => {
   return new Promise((resolved, reject) => {
@@ -45,12 +46,12 @@ const obtainFilesMDFromDirectory = (currentPath) => {
     for (var i in files) {
       var currentFile = path.join(currentPath, files[i]);
       if (fs.statSync(currentFile).isFile() && path.extname(currentFile) === '.md') {
-        links.push(currentFile);
+        filesMD.push(currentFile);
       } else if (fs.statSync(currentFile).isDirectory()) {
        obtainFilesMDFromDirectory(currentFile);
       }
     }
-    resolved(links);
+    resolved(filesMD);
   })
 };
 
@@ -65,8 +66,8 @@ const mdLinks = (ruta, options) => {
        console.log('No es archivo markdown');
      }
    } else {
-     links = obtainFilesMDFromDirectory(ruta);
-     resolved(links)
+     filesMD = obtainFilesMDFromDirectory(ruta);
+     resolved(filesMD)
    }
  })
 }
@@ -78,39 +79,42 @@ mdLinks('test')
    archivosMD.forEach(function(archivo) {
      promisesArchivosMDArray.push(lines(archivo));
    })
-   Promise.all(promisesArchivosMDArray)
+   return promisesArchivosMDArray;
+ })
+ .then((response) => {
+   console.log(response)
+   Promise.all(response)
      .then((response) => {
-       console.log(response)
-       console.log(links)
-       links.forEach(function(element) {
-         promisesFilesArray.push(getStatusCode(element.href));
-       })
-       Promise.all(promisesFilesArray)
-       .then((response) => {
-        for(i=0;i<links.length;i++) {
-          links[i].statusText = response[i].statusText;
-          links[i].statusCode = response[i].status;
-        }
-        return links;
-       })
-       .then((response) => {
-        let unique = 0;
-        let broken = 0;
-        let total = 0;
-        let linksFilter = [];
-        links.forEach(function(element) {
-          total++;
-          if(element.statusText === 'Fail') {
-            broken++;
-          }
-          linksFilter.push(element.href);
-          console.log(element.fileName + "\t" +element.lineNumber+" "+element.href+" "+element.text+" "+element.statusCode+'/'+element.statusText)
-        });
-        unique = linksFilter.filter(function(item, index, array) {
-          return array.indexOf(item) === index;
-        });
-        console.log('unique:'+unique.length+', broken:'+broken+', total:'+ total)
-       })
+           console.log(links)
+           links.forEach(function(element) {
+             promisesFilesArray.push(getStatusCode(element.href));
+           })
+           Promise.all(promisesFilesArray)
+           .then((response) => {
+            for(i=0;i<links.length;i++) {
+              links[i].statusText = response[i].statusText;
+              links[i].statusCode = response[i].status;
+            }
+            return links;
+           })
+           .then((response) => {
+            let unique = 0;
+            let broken = 0;
+            let total = 0;
+            let linksFilter = [];
+            links.forEach(function(element) {
+              total++;
+              if(element.statusText === 'Fail') {
+                broken++;
+              }
+              linksFilter.push(element.href);
+              console.log(element.fileName + "\t" +element.lineNumber+" "+element.href+" "+element.text+" "+element.statusCode+'/'+element.statusText)
+            });
+            unique = linksFilter.filter(function(item, index, array) {
+              return array.indexOf(item) === index;
+            });
+            console.log('unique:'+unique.length+', broken:'+broken+', total:'+ total)
+           })
      })
  })
 

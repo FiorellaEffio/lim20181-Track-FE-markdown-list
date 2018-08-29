@@ -48,7 +48,6 @@ archivosMD.forEach(function(archivo) {
 })
 Promise.all(promisesArchivosMDArray)
   .then((response) => {
-    console.log(links)
         console.log(links)
         links.forEach(function(element) {
           promisesFilesArray.push(getStatusCode(element.href));
