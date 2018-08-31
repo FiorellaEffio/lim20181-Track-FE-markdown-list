@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Grab provided args
-const {lines, getStatusCode, mdLinks} = require('./index.js');
+const mdLinks = require('./index.js');
 const [,, ... args] = process.argv;
 var colors = require('colors');
 let myFuncionLinks;

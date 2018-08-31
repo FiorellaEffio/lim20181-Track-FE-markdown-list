@@ -114,8 +114,4 @@ const mdLinks = (ruta, options) => {
 }
 //print the txt files in the current directory
 
-module.exports = {
-  lines,
-  getStatusCode,
-  mdLinks
-}
+module.exports = mdLinks;
