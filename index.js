@@ -4,7 +4,8 @@ let fetch = require('node-fetch');
 let lineReader = require('line-reader');
 let filesMD = [];
 let links1 = [];
-let promisesArchivosMDArray = [];
+let promisesFilesMDArray = [];
+let promisesLinksValidate = [];
 
 const getStatusCode = (url) => {
   return new Promise((resolved, reject) => {
@@ -39,18 +40,16 @@ const lines = (path) => {
 }
 
 const obtainFilesMDFromDirectory = (currentPath) => {
-  return new Promise((resolved, reject) => {
-    var files = fs.readdirSync(currentPath);
-    for (var i in files) {
-      var currentFile = path.join(currentPath, files[i]);
-      if (fs.statSync(currentFile).isFile() && path.extname(currentFile) === '.md') {
-        filesMD.push(currentFile);
-      } else if (fs.statSync(currentFile).isDirectory()) {
-       obtainFilesMDFromDirectory(currentFile);
-      }
+  var files = fs.readdirSync(currentPath);
+  for (var i in files) {
+    var currentFile = path.join(currentPath, files[i]);
+    if (fs.statSync(currentFile).isFile() && path.extname(currentFile) === '.md') {
+      filesMD.push(currentFile);
+    } else if (fs.statSync(currentFile).isDirectory()) {
+     obtainFilesMDFromDirectory(currentFile);
     }
-    resolved(filesMD);
-  })
+  }
+  return filesMD;
 };
 
 const mdLinks = (ruta, options) => {
@@ -59,13 +58,57 @@ const mdLinks = (ruta, options) => {
    if(fs.statSync(ruta).isFile()) {
      var ext = path.extname(ruta);
      if(ext === '.md') {
-       resolved([ruta])
+       filesMD = [ruta]
      } else {
        console.log('No es archivo markdown');
      }
    } else {
      filesMD = obtainFilesMDFromDirectory(ruta);
-     resolved(filesMD);
+   }
+   filesMD.forEach(function(archivo) {
+     promisesFilesMDArray.push(lines(archivo));
+   })
+   if(options.process !== false) {
+     Promise.all(promisesFilesMDArray).then((response) => {
+       return response[promisesFilesMDArray.length-1];
+     }).then((links) => {
+       if(options.validate === false && options.stats === false) {
+         resolved(links);
+       }
+       links.forEach((elemento) => {
+         promisesLinksValidate.push(getStatusCode(elemento.href))
+       })
+       Promise.all(promisesLinksValidate).then((response) => {
+         for(i=0;i<links.length;i++) {
+           links[i].statusText = response[i].statusText;
+           links[i].statusCode = response[i].status;
+         }
+         return links;
+       }).then((links)=>{
+         let unique = 0;
+         let broken = 0;
+         let total = 0;
+         let linksFilter = [];
+         links.forEach(function(element) {
+           total++;
+           if(element.statusText === 'Fail') {
+             broken++;
+           }
+           linksFilter.push(element.href);
+         });
+         unique = linksFilter.filter(function(item, index, array) {
+           return array.indexOf(item) === index;
+         });
+         unique = unique.length;
+         if(options.validate === true && options.stats === true) {
+           resolved({unique, total, broken})
+         } else if (options.validate === true) {
+           resolved(links);
+         } else if (options.stats === true) {
+           resolved({unique, total})
+         }
+       })
+     })
    }
  })
 }

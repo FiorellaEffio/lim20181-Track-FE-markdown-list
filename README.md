@@ -27,7 +27,7 @@ Milestone : 7 Contabilizar en el objeto del archivo las propiedades total, uniqu
 Para instalar esta librería debemos ejecutar el siguiente comando
 
 ```bash
-npm install md-links-effio
+npm install mdlinks-effio
 ```
 
 Para instalar las dependencias del proyecto, una vez descargado ejecutar en la linea de comandos

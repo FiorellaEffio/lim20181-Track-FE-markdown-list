@@ -68,65 +68,7 @@ if(args.length<=3){
   console.log('Demasiados argumentos, máx2');
 }
 
-myFuncionLinks.then((archivosMD) => {
-  archivosMD.forEach(function(archivo) {
-    promisesArchivosMDArray.push(lines(archivo));
-  })
-  return promisesArchivosMDArray;
-})
+myFuncionLinks
 .then((response) => {
-  if(options.process !== false) {
-    Promise.all(response)
-      .then((links) => {return links[promisesArchivosMDArray.length-1];})
-      .then((links) => {
-        if(options.validate === false && options.stats === false) {
-          links.forEach((element)=>{
-            console.log(element.fileName.green +"\t"+ element.lineNumber+"\t"+ element.href.underline.blue +"\t"+ element.text)
-          })
-        } else {
-          links.forEach(function(element) {
-            promisesFilesArray.push(getStatusCode(element.href));
-          })
-          Promise.all(promisesFilesArray)
-          .then((response) => {
-           for(i=0;i<links.length;i++) {
-             links[i].statusText = response[i].statusText;
-             links[i].statusCode = response[i].status;
-           }
-           return links;
-          })
-          .then((links) => {
-            if(options.validate === true && options.stats === false) {
-              links.forEach((element)=>{
-                if(element.statusText === 'Fail') {
-                  console.log(element.fileName.green +"\t"+ element.lineNumber+"\t"+ element.href.underline.blue +"\t"+ element.statusCode+"\t"+ element.statusText.red+"\t"+ element.text)
-                } else {
-                  console.log(element.fileName.green +"\t"+ element.lineNumber+"\t"+ element.href.underline.blue +"\t"+ element.statusCode+"\t"+ element.statusText.blue+"\t"+ element.text)
-                }
-              })
-            } else if (options.stats === true) {
-              let unique = 0;
-              let broken = 0;
-              let total = 0;
-              let linksFilter = [];
-              links.forEach(function(element) {
-                total++;
-                if(element.statusText === 'Fail') {
-                  broken++;
-                }
-                linksFilter.push(element.href);
-              });
-              unique = linksFilter.filter(function(item, index, array) {
-                return array.indexOf(item) === index;
-              });
-              console.log('Unique: ' + unique.length);
-              console.log('Total: ' + total);
-              if(options.validate === true) {
-                console.log('Broken: ' + broken);
-              }
-            }
-          })
-        }
-      })
-  }
+  console.log(response);
 })
