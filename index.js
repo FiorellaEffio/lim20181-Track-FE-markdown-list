@@ -53,6 +53,7 @@ const obtainFilesMDFromDirectory = (currentPath) => {
 };
 
 const mdLinks = (ruta, options) => {
+ ruta = path.join(process.cwd(), ruta)
  options = (options) ? options : {validate:false, stats:false};
  return new Promise((resolved, reject) => {
    if(fs.statSync(ruta).isFile()) {
