@@ -61,7 +61,7 @@ const mdLinks = (ruta, options) => {
      if(ext === '.md') {
        filesMD = [ruta]
      } else {
-       console.log('No es archivo markdown');
+       resolved('No es archivo markdown');
      }
    } else {
      filesMD = obtainFilesMDFromDirectory(ruta);
