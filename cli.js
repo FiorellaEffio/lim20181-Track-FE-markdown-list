@@ -70,5 +70,20 @@ if(args.length<=3){
 
 myFuncionLinks
 .then((response) => {
-  console.log(response);
+  if(options.validate === false && options.stats === false) {
+    response.forEach((element) => {
+      console.log(element.fileName + '\t' + element.lineNumber + '\t' + element.text + '\t' + element.href);
+    })
+  } else if (options.validate === true && options.stats ===false) {
+    response.forEach((element) => {
+      console.log(element.fileName + '\t' + element.lineNumber + '\t' + element.text + '\t' + element.href + '\t' + element.statusCode + '\t' + (element.statusText).red);
+    })
+  } else if (options.validate === false && options.stats === true) {
+    console.log('Unique: '+response.unique);
+    console.log('Total: '+response.total);
+  } else if (options.validate === true && options.stats === true) {
+    console.log('Unique: '+response.unique);
+    console.log('Total: '+response.total);
+    console.log('Broken: '+response.broken);
+  }
 })
