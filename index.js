@@ -75,40 +75,42 @@ const mdLinks = (ruta, options) => {
      }).then((links) => {
        if(options.validate === false && options.stats === false) {
          resolved(links);
-       }
-       links.forEach((elemento) => {
-         promisesLinksValidate.push(getStatusCode(elemento.href))
-       })
-       Promise.all(promisesLinksValidate).then((response) => {
-         for(i=0;i<links.length;i++) {
-           links[i].statusText = response[i].statusText;
-           links[i].statusCode = response[i].status;
-         }
-         return links;
-       }).then((links)=>{
-         let unique = 0;
-         let broken = 0;
-         let total = 0;
-         let linksFilter = [];
-         links.forEach(function(element) {
-           total++;
-           if(element.statusText === 'Fail') {
-             broken++;
+       } else {
+         console.log(links)
+         links.forEach((elemento) => {
+           promisesLinksValidate.push(getStatusCode(elemento.href))
+         })
+         Promise.all(promisesLinksValidate).then((response) => {
+           for(i=0;i<links.length;i++) {
+             links[i].statusText = response[i].statusText;
+             links[i].statusCode = response[i].status;
            }
-           linksFilter.push(element.href);
-         });
-         unique = linksFilter.filter(function(item, index, array) {
-           return array.indexOf(item) === index;
-         });
-         unique = unique.length;
-         if(options.validate === true && options.stats === true) {
-           resolved({unique, total, broken})
-         } else if (options.validate === true) {
-           resolved(links);
-         } else if (options.stats === true) {
-           resolved({unique, total})
-         }
-       })
+           return links;
+         }).then((links)=>{
+           let unique = 0;
+           let broken = 0;
+           let total = 0;
+           let linksFilter = [];
+           links.forEach(function(element) {
+             total++;
+             if(element.statusText === 'Fail') {
+               broken++;
+             }
+             linksFilter.push(element.href);
+           });
+           unique = linksFilter.filter(function(item, index, array) {
+             return array.indexOf(item) === index;
+           });
+           unique = unique.length;
+           if(options.validate === true && options.stats === true) {
+             resolved({unique, total, broken})
+           } else if (options.validate === true) {
+             resolved(links);
+           } else if (options.stats === true) {
+             resolved({unique, total})
+           }
+         })
+       }
      })
    }
  })

@@ -45,7 +45,7 @@ test('deberia decirme que no es archivo md para index.js',async () => {
 // });
 //
 test('deberia retornar las stats y validaciones para los links del archivo md', async () => {
-  answer = { unique: 1, total: 1, broken: 0 };
+  answer = { unique: 1, total: 8, broken: 0 };
   await mdLinks('test', {validate: true, stats: true}).then((respuesta) => {
   expect(respuesta).toEqual(answer);
   })
