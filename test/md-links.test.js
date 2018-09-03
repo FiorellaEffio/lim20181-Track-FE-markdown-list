@@ -1,14 +1,7 @@
 const mdLinks = require('../index.js');
 
 test('deberia retornar los links del archivo con extension md',async () => {
-  answer = [ { fileName: 'C:\\Users\\Fiorella\\Documents\\lim20181-Track-FE-markdown-list\\test\\hola\\index.md',
-    lineNumber: 2,
-    href: 'https://www.google.com.pe',
-    text: 'Google' },
-    { fileName: 'C:\\Users\\Fiorella\\Documents\\lim20181-Track-FE-markdown-list\\test\\hola\\index.md',
-      lineNumber: 3,
-      href: 'https://www.google.com.pe',
-      text: 'Google' }];
+  answer = [{"fileName": "C:\\Users\\FiorellaEffio\\Documents\\lim20181-Track-FE-markdown-list\\test\\hola\\index.md", "href": "https://www.google.com.pe", "lineNumber": 2, "text": "Google"}, {"fileName": "C:\\Users\\FiorellaEffio\\Documents\\lim20181-Track-FE-markdown-list\\test\\hola\\index.md", "href": "https://www.google.com.pe", "lineNumber": 3, "text": "Google"}];
 
   await mdLinks('test',{validate:false, stats:false}).then((respuesta) => {
     expect(respuesta).toEqual(answer)

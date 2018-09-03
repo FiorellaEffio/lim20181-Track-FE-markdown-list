@@ -76,7 +76,6 @@ const mdLinks = (ruta, options) => {
        if(options.validate === false && options.stats === false) {
          resolved(links);
        } else {
-         console.log(links)
          links.forEach((elemento) => {
            promisesLinksValidate.push(getStatusCode(elemento.href))
          })
