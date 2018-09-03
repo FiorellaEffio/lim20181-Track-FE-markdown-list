@@ -92,7 +92,7 @@ const mdLinks = (ruta, options) => {
            let linksFilter = [];
            links.forEach(function(element) {
              total++;
-             if(element.statusText === 'Fail') {
+             if(element.statusText !== 'OK') {
                broken++;
              }
              linksFilter.push(element.href);
