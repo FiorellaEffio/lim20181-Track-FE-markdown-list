@@ -1,9 +1,9 @@
-var fs = require('fs');
-var path = require('path');
+let fs = require('fs');
+let path = require('path');
 let fetch = require('node-fetch');
 let lineReader = require('line-reader');
 let filesMD = [];
-let links1 = [];
+let linksFromFilesMD = [];
 let promisesFilesMDArray = [];
 let promisesLinksValidate = [];
 
@@ -29,10 +29,10 @@ const lines = (path) => {
       if(url !== null) {
         href = url[2];
         text = url[1];
-        links1.push({fileName:path, lineNumber, href, text});
+        linksFromFilesMD.push({fileName:path, lineNumber, href, text});
       }
       if (last) {
-        resolved(links1)
+        resolved(linksFromFilesMD)
         return false; // stop reading
       }
     });
@@ -41,14 +41,14 @@ const lines = (path) => {
 
 const obtainFilesMDFromDirectory = (currentPath) => {
   let files = fs.readdirSync(currentPath);
-  for (var i in files) {
-    var currentFile = path.join(currentPath, files[i]);
+  files.forEach((element) => {
+    let currentFile = path.join(currentPath, element);
     if (fs.statSync(currentFile).isFile() && path.extname(currentFile) === '.md') {
       filesMD.push(currentFile);
     } else if (fs.statSync(currentFile).isDirectory()) {
      obtainFilesMDFromDirectory(currentFile);
     }
-  }
+  })
   return filesMD;
 };
 
@@ -57,7 +57,7 @@ const mdLinks = (ruta, options) => {
  options = (options) ? options : {validate:false, stats:false};
  return new Promise((resolved, reject) => {
    if(fs.statSync(ruta).isFile()) {
-     var ext = path.extname(ruta);
+     let ext = path.extname(ruta);
      if(ext === '.md') {
        filesMD = [ruta]
      } else {
