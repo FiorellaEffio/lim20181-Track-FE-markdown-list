@@ -97,10 +97,9 @@ const mdLinks = (ruta, options) => {
              }
              linksFilter.push(element.href);
            });
-           unique = linksFilter.filter((item, index, array) => {
+           unique = (linksFilter.filter((item, index, array) => {
              return array.indexOf(item) === index;
-           });
-           unique = unique.length;
+           })).length;
            if(options.validate === true && options.stats === true) {
              resolved({unique, total, broken})
            } else if (options.validate === true) {
