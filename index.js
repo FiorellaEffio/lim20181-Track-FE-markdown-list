@@ -10,19 +10,19 @@ let promisesLinksValidate = [];
 const getStatusCode = (url) => {
   return new Promise((resolved, reject) => {
     fetch(url)
-      .then(function(response) {
+      .then((response) => {
         resolved(response);
       })
-      .catch(function(error) {
+      .catch((error) => {
         resolved({status:'', statusText:'Fail'});
       });
   })
 }
 
 const lines = (path) => {
-  return new Promise((resolved, reject)=>{
+  return new Promise((resolved, reject) => {
     let lineNumber = 0;
-    lineReader.eachLine(path, function(line, last) {
+    lineReader.eachLine(path, (line, last) => {
       lineNumber++;
       let href,text;
       url = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
@@ -40,7 +40,7 @@ const lines = (path) => {
 }
 
 const obtainFilesMDFromDirectory = (currentPath) => {
-  var files = fs.readdirSync(currentPath);
+  let files = fs.readdirSync(currentPath);
   for (var i in files) {
     var currentFile = path.join(currentPath, files[i]);
     if (fs.statSync(currentFile).isFile() && path.extname(currentFile) === '.md') {
@@ -66,7 +66,7 @@ const mdLinks = (ruta, options) => {
    } else {
      filesMD = obtainFilesMDFromDirectory(ruta);
    }
-   filesMD.forEach(function(archivo) {
+   filesMD.forEach((archivo) => {
      promisesFilesMDArray.push(lines(archivo));
    })
    if(options.process !== false) {
@@ -90,14 +90,14 @@ const mdLinks = (ruta, options) => {
            let broken = 0;
            let total = 0;
            let linksFilter = [];
-           links.forEach(function(element) {
+           links.forEach((element) => {
              total++;
              if(element.statusText !== 'OK') {
                broken++;
              }
              linksFilter.push(element.href);
            });
-           unique = linksFilter.filter(function(item, index, array) {
+           unique = linksFilter.filter((item, index, array) => {
              return array.indexOf(item) === index;
            });
            unique = unique.length;
@@ -114,6 +114,5 @@ const mdLinks = (ruta, options) => {
    }
  })
 }
-//print the txt files in the current directory
 
 module.exports = mdLinks;
